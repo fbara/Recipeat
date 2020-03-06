@@ -14,7 +14,7 @@ struct PostView: View {
             Image(systemName: "heart")
                 .frame(height: 300)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+                .background(Color.init(red: 0.95, green: 0.95, blue: 0.95).opacity(0.6))
             VStack {
                 HStack {
                     Image(systemName: "heart")
@@ -35,7 +35,9 @@ struct PostView: View {
                 }
                 .font(.system(size: 14, weight: .regular))
             }.padding()
+                .background(Color.orange)
         }
+        .background(Color.yellow)
     }
 }
 
