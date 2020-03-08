@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AD9BC4632412CE2F003E3FD9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4622412CE2F003E3FD9 /* PostView.swift */; };
+		AD9BC4652412D14F003E3FD9 /* StoryCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */; };
 		ADB8F9BC240E26EE007D7C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9BB240E26EE007D7C31 /* AppDelegate.swift */; };
 		ADB8F9BE240E26EE007D7C31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9BD240E26EE007D7C31 /* SceneDelegate.swift */; };
 		ADB8F9C1240E26EE007D7C31 /* Recipeat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9BF240E26EE007D7C31 /* Recipeat.xcdatamodeld */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		AD9BC4622412CE2F003E3FD9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCircleView.swift; sourceTree = "<group>"; };
 		ADB8F9B8240E26EE007D7C31 /* Recipeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB8F9BB240E26EE007D7C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADB8F9BD240E26EE007D7C31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				AD9BC4622412CE2F003E3FD9 /* PostView.swift */,
+				AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			files = (
 				ADB8F9C1240E26EE007D7C31 /* Recipeat.xcdatamodeld in Sources */,
 				ADB8F9BC240E26EE007D7C31 /* AppDelegate.swift in Sources */,
+				AD9BC4652412D14F003E3FD9 /* StoryCircleView.swift in Sources */,
 				ADB8F9C3240E26EE007D7C31 /* TabbedRootView.swift in Sources */,
 				ADB8F9F3240E29D2007D7C31 /* SearchView.swift in Sources */,
 				ADB8F9F5240E29DF007D7C31 /* MeView.swift in Sources */,

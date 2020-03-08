@@ -11,22 +11,29 @@ import SwiftUI
 struct HomeView: View {
     
     var HomePosts:[recipePost] = [
-        recipePost(postingUser: "person", description: "This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse"))
+        recipePost(postingUser: "person", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(postingUser: "adfasdfasfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(postingUser: "afafdfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(postingUser: "adfasfas", description: "This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(postingUser: "afafadf", description: "This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(postingUser: "sfadsfa", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse"))
     ]
     
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    Text("This is scrollable to the right and left.")
-                    Text("This is scrollable to the right and left.")
+                    Spacer().frame(width: 10)
+                    ForEach(0 ..< 10) { item in
+                        StoryCircleView()
+                    }
                 }.frame(height: 80)
-            }.background(Color.red)
+            }.background(Color.clear)
             ScrollView {
-                ForEach(0 ..< 50) { item in
-                    Text("This is scrollable up and down.")
+                ForEach(HomePosts, id: \.id) { post in
+                    PostView(passed_postingUser: post.postingUser, passed_description: post.description, passed_numberOfLikes: post.numberOfLikes, passed_image: post.image)
                 }
-            }.background(Color.blue)
+            }.background(Color.clear)
         }
     }
 }
