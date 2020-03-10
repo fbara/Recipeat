@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>136859660246-job5f37s69gfcd8211hsm8iff7nao520.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.136859660246-job5f37s69gfcd8211hsm8iff7nao520</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDhzV2alUDkR0spFXHncKSwoQ98GFxCa2s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>136859660246</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.baralabs.Recipeat</string>
+	<key>PROJECT_ID</key>
+	<string>recipeat-dfe55</string>
+	<key>STORAGE_BUCKET</key>
+	<string>recipeat-dfe55.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:136859660246:ios:88ad515179745f4afa7e77</string>
+	<key>DATABASE_URL</key>
+	<string>https://recipeat-dfe55.firebaseio.com</string>
+</dict>
+</plist>

@@ -66,13 +66,17 @@ struct SignUp: View {
                 Spacer()
                     .frame(height: 30)
             
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                Button(action: {
+                    print("Button pressed")
+                }) {
                     HStack {
                         Text("Sign Up")
                         Image(systemName: "checkmark")
                     }
-                }.padding(30)
-            }
+                    
+                }
+                Spacer().frame(height: 250)
+            }.padding(30)
         }
     }
 }
