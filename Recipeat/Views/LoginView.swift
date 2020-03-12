@@ -7,9 +7,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LoginView: View {
+    
     @State private var signup_visible = false
+    @State private var username: String = ""
+    @State private var password: String = ""
+    
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,17 +27,30 @@ struct LoginView: View {
                 .background(Color.blue)
                 .edgesIgnoringSafeArea(.top)
             
-            TextField("User", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Username", text: $username)
                 .padding()
                 .background(Color.clear)
             
-            TextField("Password", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Password", text: $password)
                 .padding()
                 .background(Color.clear)
             
             Spacer().frame(height: 30)
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: {
+                Firestore.firestore().collection("users").whereField("username", isEqualTo: self.username).getDocuments() { (querySnapshot, err) in
+                    print("Username: \(self.username)")
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        
+                        for document in querySnapshot!.documents {
+                            print("Output:\n")
+                            print("\(document.documentID) => \(document.data())")
+                        }
+                    }
+                }
+            }) {
                 HStack {
                     Text("Login")
                     Image(systemName: "arrow.right")
