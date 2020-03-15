@@ -51,18 +51,21 @@ struct SignUp: View {
                         .frame(height: 2)
                         .foregroundColor(.white)
                         .opacity(0.2)
+                    
                     TextField("Email", text: $email)
                     .frame(height: 40)
                     Rectangle()
                         .frame(height: 2)
                         .foregroundColor(.white)
                         .opacity(0.2)
+                    
                     TextField("Username", text: $username)
                     .frame(height: 40)
                     Rectangle()
                         .frame(height: 2)
                         .foregroundColor(.white)
                         .opacity(0.2)
+                    
                     TextField("Password", text: $password)
                     .frame(height: 40)
                     Rectangle()

@@ -18,6 +18,20 @@ struct recipePost: Identifiable {
     var image: Image
 }
 
+struct user: Identifiable {
+    var id = UUID()
+    var username: String
+    var password: String
+    var name: String
+    var email: String
+    
+}
+
+class GlobalEnvironment: ObservableObject {
+    
+    @Published var currentUser: user = user.init(username: "", password: "", name: "", email: "")
+}
+
 
 var lightBlue = Color.init(red: 91/255, green: 152/255, blue: 198/255)
 var darkBlue = Color.init(red: 47/255, green: 75/255, blue: 135/255)
