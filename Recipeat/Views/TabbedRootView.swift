@@ -18,33 +18,27 @@ struct TabbedRootView: View {
         ZStack {
             NavigationView {
                 Text("")
-            }.navigationBarTitle("\(env.currentUser.username)")
+            }.navigationBarTitle("")
             .navigationBarHidden(true)
             
             TabView(selection: $selection) {
                 HomeView()
                     .tabItem {
-                        VStack {
-                            Image(systemName: "house")
-                            Text("Home")
-                        }
+                        Image(systemName: "house")
+                        Text("Home")
                 }
                 .tag(0)
                 SearchView()
                     
                     .tabItem {
-                        VStack {
-                            Image(systemName: "magnifyingglass")
-                            Text("Search")
-                        }
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
                 }
                 .tag(1)
                 MeView()
                     .tabItem {
-                        VStack {
-                            Image(systemName: "person.circle")
-                            Text("Me")
-                        }
+                        Image(systemName: "person.circle")
+                        Text("Me")
                 }
                 .tag(2)
             }

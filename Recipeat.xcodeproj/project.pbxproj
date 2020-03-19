@@ -27,6 +27,7 @@
 		ADB8F9F1240E2856007D7C31 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9F0240E2856007D7C31 /* HomeView.swift */; };
 		ADB8F9F3240E29D2007D7C31 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9F2240E29D2007D7C31 /* SearchView.swift */; };
 		ADB8F9F5240E29DF007D7C31 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9F4240E29DF007D7C31 /* MeView.swift */; };
+		ADF86CF3241DEC4000790D38 /* HelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF86CF2241DEC4000790D38 /* HelperFuncs.swift */; };
 		D5D3E5F53CB63069F52D6B08 /* Pods_RecipeatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047C83F564A9241FA269D2D2 /* Pods_RecipeatTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		ADB8F9F0240E2856007D7C31 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		ADB8F9F2240E29D2007D7C31 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		ADB8F9F4240E29DF007D7C31 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
+		ADF86CF2241DEC4000790D38 /* HelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncs.swift; sourceTree = "<group>"; };
 		BE99281F96383C6BC4A6AE73 /* Pods-RecipeatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeatUITests.debug.xcconfig"; path = "Target Support Files/Pods-RecipeatUITests/Pods-RecipeatUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F761329EE4993A9BCFC910F4 /* Pods_Recipeat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipeat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 				ADB8F9BB240E26EE007D7C31 /* AppDelegate.swift */,
 				ADB8F9BD240E26EE007D7C31 /* SceneDelegate.swift */,
 				ADB8F9EE240E271B007D7C31 /* Structs_Enums_Classes.swift */,
+				ADF86CF2241DEC4000790D38 /* HelperFuncs.swift */,
 				ADB8F9F7240E2A25007D7C31 /* Views */,
 				ADB8F9C4240E26F0007D7C31 /* Assets.xcassets */,
 				ADB8F9C9240E26F0007D7C31 /* LaunchScreen.storyboard */,
@@ -455,6 +458,7 @@
 				ADB8F9C1240E26EE007D7C31 /* Recipeat.xcdatamodeld in Sources */,
 				AD418B142414B9FE00C8C6BF /* SignUp.swift in Sources */,
 				ADB8F9BC240E26EE007D7C31 /* AppDelegate.swift in Sources */,
+				ADF86CF3241DEC4000790D38 /* HelperFuncs.swift in Sources */,
 				AD9BC4652412D14F003E3FD9 /* StoryCircleView.swift in Sources */,
 				ADB8F9C3240E26EE007D7C31 /* TabbedRootView.swift in Sources */,
 				ADB8F9F3240E29D2007D7C31 /* SearchView.swift in Sources */,

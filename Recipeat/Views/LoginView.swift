@@ -35,22 +35,18 @@ struct LoginView: View {
                         .autocapitalization(.none)
                         .padding()
                         .background(Color.clear)
-                        .foregroundColor(.white)
                         .frame(height: 50)
                         .overlay(Capsule()
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(.white))
+                            .stroke(lineWidth: 2))
                         .padding()
                     
                     SecureField("Password", text: $password)
                         .autocapitalization(.none)
                         .padding()
                         .background(Color.clear)
-                        .foregroundColor(.white)
                         .frame(height: 50)
                         .overlay(Capsule()
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(.white))
+                            .stroke(lineWidth: 2))
                         .padding()
                     
                     
@@ -79,9 +75,14 @@ struct LoginView: View {
                                             print("\(document.documentID) => \(document.data())")
                                             if document.data()["password"] as? String ?? "" == (self.password) {
                                                 self.env.currentUser = user.init(username: document.data()["username"] as? String ?? "",
-                                                                            password: document.data()["password"] as? String ?? "",
-                                                                            name: document.data()["name"] as? String ?? "",
-                                                                            email: document.data()["email"] as? String ?? "")
+                                                                                 password: document.data()["password"] as? String ?? "",
+                                                                                 name: document.data()["name"] as? String ?? "",
+                                                                                 email: document.data()["email"] as? String ?? "")
+                                                
+                                                
+                                                
+                                                // Login happens here.  This is where you are right before you're flipped to the next screen.
+                                                self.env.save_UserDefaults()
                                                 self.isLoggedIn = true
                                             } else {
                                                 let alertView = SPAlertView(title: "Password doesn't match", message: nil, preset: SPAlertPreset.error)
@@ -102,6 +103,7 @@ struct LoginView: View {
                             
                         }.background(lightBlue)
                             .cornerRadius(25)
+                            .padding()
                     }
                     
                     
@@ -123,10 +125,12 @@ struct LoginView: View {
                     Spacer()
                     
                     
-                }.background(Color.clear)
+                    }.background(Color.clear)
+                    .foregroundColor(.white)
             }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
-        
     }
 }
 
