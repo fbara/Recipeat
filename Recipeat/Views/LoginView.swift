@@ -105,6 +105,25 @@ struct LoginView: View {
                             .cornerRadius(25)
                             .padding()
                     }
+                    .onAppear() {
+                        // open up lastLogin_objects as Data
+                        if let lastLogin_objects = UserDefaults.standard.object(forKey: "lastLogin_objects") as? Data {
+                            do {
+                                // try to unarchive lastLoging_objects as the data dictionary we used to save it in the first place (HelperFuncs)
+                                if let lastSession = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(lastLogin_objects) as? [String: Any?] {
+                                    // successful login; move user to TabbedRootView
+                                    self.isLoggedIn = true
+                                    print(lastSession)
+                                }
+                            } catch {
+                                print("couldn't unwrap data/last session.")
+                            }
+                        } else {
+                            print("couldn't unwrap data/lastLogin_objects.")
+                        }
+                    }
+                    
+                    
                     
                     
                     Spacer()
@@ -125,7 +144,7 @@ struct LoginView: View {
                     Spacer()
                     
                     
-                    }.background(Color.clear)
+                }.background(Color.clear)
                     .foregroundColor(.white)
             }
             .navigationBarTitle("")
