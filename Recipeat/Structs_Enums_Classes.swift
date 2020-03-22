@@ -37,8 +37,19 @@ var lightBlue = Color.init(red: 91/255, green: 152/255, blue: 198/255)
 var darkBlue = Color.init(red: 47/255, green: 75/255, blue: 135/255)
 var vDarkBlue = Color.init(red: 2/255, green: 51/255, blue: 92/255)
 
-enum IngredientUnit {
-    case cup, tablespoon, teaspoon, pinch, dash, pound, kg, mg, g, ml, l, whole
+enum IngredientUnit: String {
+    case cup = "cup"
+    case tablespoon = "tablespoon"
+    case teaspoon = "teaspoon"
+    case pinch = "pinch"
+    case dash = "dash"
+    case lb = "lb"
+    case kg = "kg"
+    case mg = "mg"
+    case g = "g"
+    case mL = "mL"
+    case L = "L"
+    case whole = "whole"
 }
 
 struct Ingredient: Identifiable {
