@@ -11,12 +11,12 @@ import SwiftUI
 struct HomeView: View {
     
     var HomePosts:[recipePost] = [
-        recipePost(postingUser: "person", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        recipePost(postingUser: "adfasdfasfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        recipePost(postingUser: "afafdfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        recipePost(postingUser: "adfasfas", description: "This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        recipePost(postingUser: "afafadf", description: "This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        recipePost(postingUser: "sfadsfa", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse"))
+        recipePost(steps: [], ingredients: [], postingUser: "person", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(steps: [], ingredients: [],postingUser: "adfasdfasfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(steps: [], ingredients: [],postingUser: "afafdfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(steps: [], ingredients: [],postingUser: "adfasfas", description: "This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(steps: [], ingredients: [],postingUser: "afafadf", description: "This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        recipePost(steps: [], ingredients: [],postingUser: "sfadsfa", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse"))
     ]
     
     var body: some View {
@@ -35,6 +35,8 @@ struct HomeView: View {
                 }
             }.background(Color.clear)
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

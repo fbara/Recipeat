@@ -10,7 +10,11 @@ import SwiftUI
 
 struct MeView: View {
     var body: some View {
-        Text("This is me")
+        ZStack {
+          Text("This is me")
+        }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

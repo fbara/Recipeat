@@ -77,7 +77,8 @@ struct LoginView: View {
                                                 self.env.currentUser = user.init(username: document.data()["username"] as? String ?? "",
                                                                                  password: document.data()["password"] as? String ?? "",
                                                                                  name: document.data()["name"] as? String ?? "",
-                                                                                 email: document.data()["email"] as? String ?? "")
+                                                                                 email: document.data()["email"] as? String ?? "",
+                                                                                 document.documentID)
                                                 
                                                 
                                                 
@@ -112,8 +113,19 @@ struct LoginView: View {
                                 // try to unarchive lastLoging_objects as the data dictionary we used to save it in the first place (HelperFuncs)
                                 if let lastSession = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(lastLogin_objects) as? [String: Any?] {
                                     // successful login; move user to TabbedRootView
+                                    
+                                    if let rememberedUser = lastSession["lastLogin_user"] as? user {
+                                        print("Login good with remembered user")
+                                        print(rememberedUser)
+                                        self.env.currentUser = rememberedUser
+                                    } else {
+                                        print("Couldn't unwrap user")
+                                        print(lastSession)
+                                        print(lastSession["lastLogin_user"])
+                                    }
+                                    
                                     self.isLoggedIn = true
-                                    print(lastSession)
+                                    print("Logged in successfully.")
                                 }
                             } catch {
                                 print("couldn't unwrap data/last session.")
@@ -150,6 +162,8 @@ struct LoginView: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

@@ -8,13 +8,13 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 extension GlobalEnvironment {
     
     func save_UserDefaults() {
         let data_dictionary: [String: Any?] = [
-            "lastLogin_username":currentUser.username,
-            "lastLogin_password":currentUser.password
+            "lastLogin_user": currentUser
         ]
         
         let save_UserDefaults = UserDefaults.standard

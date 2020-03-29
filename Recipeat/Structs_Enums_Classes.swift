@@ -11,25 +11,60 @@ import SwiftUI
 
 struct recipePost: Identifiable {
     var id = UUID()
-    
+    var steps: [Step]
+    var ingredients: [Ingredient]
     var postingUser: String
     var description: String
     var numberOfLikes: Int
     var image: Image
 }
 
-struct user: Identifiable {
+class user: NSObject, Identifiable, NSCoding {
     var id = UUID()
+    var establishedID: String
     var username: String
     var password: String
     var name: String
     var email: String
     
+    init(username: String, password: String, name: String, email: String, _ establishedID: String?) {
+        self.username = username
+        self.password = password
+        self.name = name
+        self.email = email
+        
+        if let establishedID = establishedID {
+            self.establishedID = establishedID
+        } else {
+            self.establishedID = id.uuidString
+        }
+        
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        // decode the attributes
+        id = aDecoder.decodeObject(forKey: "id") as? UUID ?? UUID()
+        establishedID = aDecoder.decodeObject(forKey: "establishedID") as? String ?? ""
+        username = aDecoder.decodeObject(forKey: "username") as? String ?? ""
+        password = aDecoder.decodeObject(forKey: "password") as? String ?? ""
+        name = aDecoder.decodeObject(forKey: "name") as? String ?? ""
+        email = aDecoder.decodeObject(forKey: "email") as? String ?? ""
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(establishedID, forKey: "establishedID")
+        aCoder.encode(username, forKey: "username")
+        aCoder.encode(password, forKey: "password")
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(email, forKey: "email")
+    }
+    
 }
 
 class GlobalEnvironment: ObservableObject {
     
-    @Published var currentUser: user = user.init(username: "", password: "", name: "", email: "")
+    @Published var currentUser: user = user.init(username: "", password: "", name: "", email: "", nil)
 }
 
 

@@ -35,12 +35,19 @@ struct TabbedRootView: View {
                         Text("Search")
                 }
                 .tag(1)
+                NewPostView()
+                    .tabItem {
+                        Image(systemName: "plus.square")
+                        Text("Add Recipe")
+                }
+                .tag(2)
+                
                 MeView()
                     .tabItem {
                         Image(systemName: "person.circle")
                         Text("Me")
                 }
-                .tag(2)
+                .tag(3)
             }
         }
     }

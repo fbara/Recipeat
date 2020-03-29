@@ -10,7 +10,11 @@ import SwiftUI
 
 struct SearchView: View {
     var body: some View {
-        Text("This is search")
+        ZStack {
+          Text("This is search")
+        }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 
