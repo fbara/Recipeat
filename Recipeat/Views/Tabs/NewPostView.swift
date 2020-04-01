@@ -14,6 +14,7 @@ struct NewPostView: View {
     @State private var showImagePicker = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     @State private var image: UIImage?
+    @State private var halfModal_shown = false
     
     
     //sample data
@@ -77,10 +78,10 @@ struct NewPostView: View {
                             Button(action: {
                                 self.showSheet.toggle()
                             }) {
-                                Image(systemName: "plus.circle")
+                                Image(systemName: "plus.circle.fill")
                                     .font(.system(size: 30))
-                                    .foregroundColor(.black)
-                                    .background(Color.white)
+                                    .foregroundColor(.white)
+                                    .shadow(radius: 3)
                                     .opacity(0.7)
                                     .padding()
                             }
@@ -99,43 +100,79 @@ struct NewPostView: View {
                             }
                         }
                         Spacer()
+                        
                     }
                     
                 }
                 HStack {
-                    VStack {
-                        Text("Ingredients")
-                        ScrollView {
+                    //Ingredients
+                    ZStack {
+                        VStack {
+                            Text("Ingredients")
+                            ScrollView {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        ForEach(ingredients, id: \.id) { thisIngredient in
+                                            Text("\(thisIngredient.amount) \(thisIngredient.name)")
+                                        }
+                                    }.padding()
+                                    Spacer()
+                                }
+                            }
+                            .frame(width: UIScreen.main.bounds.size.width/2)
+                            .clipped()
+                        }
+                        .background(Color.yellow)
+                        
+                        VStack {
                             HStack {
-                                VStack(alignment: .leading) {
-                                    ForEach(ingredients, id: \.id) { thisIngredient in
-                                        Text("\(thisIngredient.amount) \(thisIngredient.name)")
-                                    }
-                                }.padding()
+                                Button(action: {
+                                    self.halfModal_shown = true
+                                }) {
+                                    Image(systemName: "plus.circle")
+                                        .padding()
+                                }
+                                
                                 Spacer()
                             }
+                            
+                            Spacer()
                         }
-                        .frame(width: UIScreen.main.bounds.size.width/2)
-                        .clipped()
                     }
-                    .background(Color.yellow)
                     
-                    VStack {
-                        Text("Steps")
-                        ScrollView {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    ForEach(steps, id: \.id) { thisStep in
-                                        Text(thisStep.description)
-                                    }
-                                }.padding()
-                                Spacer()
+                    ZStack {
+                        //Steps
+                        VStack {
+                            Text("Steps")
+                            ScrollView {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        ForEach(steps, id: \.id) { thisStep in
+                                            Text(thisStep.description)
+                                        }
+                                    }.padding()
+                                    Spacer()
+                                }
                             }
+                            .frame(width: UIScreen.main.bounds.size.width/2)
+                            .clipped()
                         }
-                        .frame(width: UIScreen.main.bounds.size.width/2)
-                        .clipped()
+                        .background(Color.green)
+                        
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    self.halfModal_shown = true
+                                }) {
+                                    Image(systemName: "plus.circle")
+                                        .padding()
+                                }
+                            }
+                            
+                            Spacer()
+                        }
                     }
-                    .background(Color.green)
                     
                 }
             }
@@ -157,6 +194,10 @@ struct NewPostView: View {
                     .background(Color.blue)
                     imagePicker(image: self.$image, sourceType: self.sourceType)
                 }
+            }
+            
+            HalfModalView(isShown: $halfModal_shown) {
+                Text("this is a half-modal.")
             }
         }
     }

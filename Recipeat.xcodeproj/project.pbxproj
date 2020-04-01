@@ -11,6 +11,7 @@
 		8C35897C50D8DAC96C6068F0 /* Pods_Recipeat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F761329EE4993A9BCFC910F4 /* Pods_Recipeat.framework */; };
 		AD418B142414B9FE00C8C6BF /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD418B132414B9FE00C8C6BF /* SignUp.swift */; };
 		AD418B162418074C00C8C6BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD418B152418074C00C8C6BF /* GoogleService-Info.plist */; };
+		AD44860524316A3E0047D5AB /* HalfModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44860424316A3E0047D5AB /* HalfModalView.swift */; };
 		AD9BC4632412CE2F003E3FD9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4622412CE2F003E3FD9 /* PostView.swift */; };
 		AD9BC4652412D14F003E3FD9 /* StoryCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */; };
 		AD9BC4672414B1DD003E3FD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4662414B1DD003E3FD9 /* LoginView.swift */; };
@@ -60,6 +61,7 @@
 		9A1691E94BD62C35560D0D9F /* Pods_RecipeatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipeatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD418B132414B9FE00C8C6BF /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		AD418B152418074C00C8C6BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AD44860424316A3E0047D5AB /* HalfModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalView.swift; sourceTree = "<group>"; };
 		AD9BC4622412CE2F003E3FD9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCircleView.swift; sourceTree = "<group>"; };
 		AD9BC4662414B1DD003E3FD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			children = (
 				AD9BC4622412CE2F003E3FD9 /* PostView.swift */,
 				AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */,
+				AD44860424316A3E0047D5AB /* HalfModalView.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADB8F9C1240E26EE007D7C31 /* Recipeat.xcdatamodeld in Sources */,
+				AD44860524316A3E0047D5AB /* HalfModalView.swift in Sources */,
 				AD418B142414B9FE00C8C6BF /* SignUp.swift in Sources */,
 				ADB8F9BC240E26EE007D7C31 /* AppDelegate.swift in Sources */,
 				ADEE9B472423129E00239BAA /* NewPostView.swift in Sources */,
