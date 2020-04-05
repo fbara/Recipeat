@@ -15,40 +15,44 @@ struct NewPostView: View {
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     @State private var image: UIImage?
     @State private var halfModal_shown = false
+    @State private var halfModal_title = ""
+    @State private var halfModal_textfield_placeholder = ""
+    @State private var halfModal_textfield_val = ""
+
     
     
     //sample data
     var steps: [Step] = [
-        Step(description: "add eggs", orderNumber: 0),
-        Step(description: "add eggs", orderNumber: 1),
-        Step(description: "add eggs", orderNumber: 2),
-        Step(description: "add eggs", orderNumber: 3),
-        Step(description: "add eggs", orderNumber: 4),
-        Step(description: "add eggs", orderNumber: 5),
-        Step(description: "add eggs", orderNumber: 6),
-        Step(description: "add eggs", orderNumber: 7),
-        Step(description: "add eggs", orderNumber: 8)
+//        Step(description: "add eggs", orderNumber: 0),
+//        Step(description: "add eggs", orderNumber: 1),
+//        Step(description: "add eggs", orderNumber: 2),
+//        Step(description: "add eggs", orderNumber: 3),
+//        Step(description: "add eggs", orderNumber: 4),
+//        Step(description: "add eggs", orderNumber: 5),
+//        Step(description: "add eggs", orderNumber: 6),
+//        Step(description: "add eggs", orderNumber: 7),
+//        Step(description: "add eggs", orderNumber: 8)
     ]
     
     var ingredients: [Ingredient] = [
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 0),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
-        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
-        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
-        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
-        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 12)
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 0),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
+//        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
+//        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
+//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
+//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 12)
     ]
     
     
@@ -56,6 +60,8 @@ struct NewPostView: View {
         
         ZStack {
             VStack {
+                Spacer()
+                    .frame(height: 65)
                 ZStack {
                     HStack {
                         if image != nil {
@@ -63,13 +69,14 @@ struct NewPostView: View {
                                 .resizable()
                                 .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
                                 .scaledToFit()
-                                .background(Color.blue)
+                                .background(Color.black)
                         } else {
-                            Image(systemName:"timelapse")
+                            Image(systemName:"camera")
                                 .resizable()
-                                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
                                 .scaledToFit()
-                                .background(Color.blue)
+                                .padding(130)
+                                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
+                                .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
                         }
                     }
                     VStack {
@@ -78,12 +85,16 @@ struct NewPostView: View {
                             Button(action: {
                                 self.showSheet.toggle()
                             }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .font(.system(size: 30))
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 3)
-                                    .opacity(0.7)
-                                    .padding()
+                                ZStack {
+                                    Image(systemName: "plus.circle.fill")
+                                        .foregroundColor(.black)
+                                    Image(systemName: "plus.circle.fill")
+                                        .foregroundColor(.white)
+                                }
+                                .font(.system(size: 30))
+                                .shadow(radius: 4)
+                                .opacity(0.7)
+                                .padding()
                             }
                             .actionSheet(isPresented: $showSheet) {
                                 ActionSheet(title: Text("Add a picture to your post"), message: nil, buttons: [
@@ -106,75 +117,98 @@ struct NewPostView: View {
                 }
                 HStack {
                     //Ingredients
-                    ZStack {
-                        VStack {
-                            Text("Ingredients")
-                            ScrollView {
-                                HStack {
-                                    VStack(alignment: .leading) {
+                    VStack {
+                        Text("Ingredients")
+                            .font(.headline)
+                        ScrollView {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    
+                                    if ingredients.count > 0 {
                                         ForEach(ingredients, id: \.id) { thisIngredient in
                                             Text("\(thisIngredient.amount) \(thisIngredient.name)")
+                                        }.foregroundColor(Color.init(red: 108/255, green: 204/255, blue: 108/255))
+                                    } else {
+                                        Button(action: {
+                                            self.halfModal_title = "ADD A INGREDIENT"
+                                            self.halfModal_textfield_placeholder = "Enter new ingredient"
+                                            self.halfModal_shown = true
+                                        }) {
+                                            Text("Add Some Ingredients")
+                                                .padding()
+                                                .foregroundColor(.gray)
                                         }
-                                    }.padding()
-                                    Spacer()
-                                }
-                            }
-                            .frame(width: UIScreen.main.bounds.size.width/2)
-                            .clipped()
-                        }
-                        .background(Color.yellow)
-                        
-                        VStack {
-                            HStack {
-                                Button(action: {
-                                    self.halfModal_shown = true
-                                }) {
-                                    Image(systemName: "plus.circle")
-                                        .padding()
-                                }
-                                
+                                    }
+                                    
+                                }.padding()
                                 Spacer()
                             }
-                            
-                            Spacer()
                         }
-                    }
+                        .frame(width: UIScreen.main.bounds.size.width/2)
+                        .clipped()
+                        Button(action: {
+                            self.halfModal_title = "ADD INGREDIENT"
+                            self.halfModal_textfield_placeholder = "Enter your ingredient"
+                            self.halfModal_shown = true
+                        }) {
+                            Text("Add New")
+                                .padding()
+                                .font(.headline)
+                        }
+                        
                     
-                    ZStack {
-                        //Steps
-                        VStack {
-                            Text("Steps")
-                            ScrollView {
-                                HStack {
-                                    VStack(alignment: .leading) {
+                    }
+                    .background(Color.clear)
+                    
+                    
+                    //Steps
+                    VStack {
+                        Text("Steps")
+                            .font(.headline)
+                        ScrollView {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    
+                                    if steps.count > 0 {
                                         ForEach(steps, id: \.id) { thisStep in
                                             Text(thisStep.description)
+                                        }.foregroundColor(Color.init(red: 108/255, green: 172/255, blue: 204/255))
+                                    } else {
+                                        Button(action: {
+                                            self.halfModal_title = "ADD A STEP"
+                                            self.halfModal_textfield_placeholder = "Enter your step"
+                                            self.halfModal_shown = true
+                                        }) {
+                                            Text("Add Some Steps")
+                                                .padding()
+                                                .foregroundColor(.gray)
                                         }
-                                    }.padding()
-                                    Spacer()
-                                }
-                            }
-                            .frame(width: UIScreen.main.bounds.size.width/2)
-                            .clipped()
-                        }
-                        .background(Color.green)
-                        
-                        VStack {
-                            HStack {
+                                    }
+                                    
+                                }.padding()
                                 Spacer()
-                                Button(action: {
-                                    self.halfModal_shown = true
-                                }) {
-                                    Image(systemName: "plus.circle")
-                                        .padding()
-                                }
                             }
-                            
-                            Spacer()
                         }
+                        .frame(width: UIScreen.main.bounds.size.width/2)
+                        .clipped()
+                        
+                        Button(action: {
+                            self.halfModal_title = "ADD A STEP"
+                            self.halfModal_textfield_placeholder = "Enter your step"
+                            self.halfModal_shown = true
+                        }) {
+                            Text("Add New")
+                                .padding()
+                                .font(.headline)
+                        }
+                        
                     }
+                    .background(Color.clear)
+                    
                     
                 }
+                Spacer()
+                .frame(height: 65)
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
@@ -196,8 +230,30 @@ struct NewPostView: View {
                 }
             }
             
-            HalfModalView(isShown: $halfModal_shown) {
-                Text("this is a half-modal.")
+            HalfModalView(isShown: $halfModal_shown, modalHeight: 380) {
+                
+                
+                
+                VStack {
+                    Spacer().frame(height: 15)
+                    Text("\(self.halfModal_title)").font(.headline)
+                    TextField("\(self.halfModal_textfield_placeholder)", text: self.$halfModal_textfield_val)
+                        .padding(10)
+                        .background(
+                            Rectangle()
+                                .cornerRadius(10)
+                                .foregroundColor(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+                    )
+                        .padding(20)
+                    
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 35))
+                        .foregroundColor(.init(red: 110/255, green: 210/255, blue: 110/255))
+                    Spacer()
+                }
+                
+                
+                
             }
         }
     }

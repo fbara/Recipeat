@@ -33,7 +33,7 @@ struct PostView: View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     Text("Prep time: 15 minutes")
-                    .foregroundColor(Color.init(red: 108/255, green: 204/255, blue: 1089/255))
+                    .foregroundColor(Color.init(red: 108/255, green: 204/255, blue: 108/255))
                     Text("Cook time: 35 minutes")
                     .foregroundColor(Color.init(red: 108/255, green: 172/255, blue: 204/255))
                 }

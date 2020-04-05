@@ -12,6 +12,7 @@ struct HalfModalView<Content: View>: View {
     
     @GestureState private var dragState = DragState.inactive
     @Binding var isShown: Bool
+    var isNear_tabView = false
     
     private func onDragEnded(drag: DragGesture.Value) {
         //If we pass 2/3 of the view height, continue
@@ -59,11 +60,19 @@ struct HalfModalView<Content: View>: View {
                         .shadow(radius: 5)
                     
                     //Put content directly on top of the white color
-                    self.content()
-                        .padding()
-                        .padding(.bottom, 60)
-                        .frame(width: UIScreen.main.bounds.size.width, height: modalHeight)
-                        .clipped()
+                    VStack {
+                        self.content()
+                            .padding()
+                            .padding(.bottom, 60)
+                            .frame(width: UIScreen.main.bounds.size.width, height: modalHeight)
+                            .clipped()
+                        
+                        if isNear_tabView {
+                            Spacer()
+                            .frame(height: 65)
+                        }
+                        
+                    }
                 }
                     //Offset in y dimension depends on if iShown is true or false
                     .offset(y: isShown ? ((self.dragState.isDragging && dragState.translation.height >= 1) ? dragState.translation.height : 0) : modalHeight)
