@@ -42,10 +42,12 @@ struct HalfModalView<Content: View>: View {
                     //Creates the darkness of the background when moving the model up or down
                     .background(isShown ? Color.black.opacity(0.5 * fraction_progress(lowerLimit: 0, upperLimit: Double(modalHeight), current: Double(dragState.translation.height), inverted: true)) : Color.clear)
                     //Animate the color changes
-                    .animation(.interpolatingSpring(stiffness: 100.0, damping: 30.0))
+                    .animation(.interpolatingSpring(stiffness: 100.0, damping: 30.0, initialVelocity: 10.0))
                     //.animation(.interpolatingSpring(stiffness: 100.0, damping: 30.0, initialVelocity: 10.0))
                     //Tap gesture to hide view when tapping anywhere outside the model view
                     .gesture(TapGesture().onEnded { _ in
+                        //Hide the keyboard if visible
+                        UIApplication.shared.endEditing()
                         self.isShown = false
                     })
             }
@@ -81,6 +83,8 @@ struct HalfModalView<Content: View>: View {
                     //Add the gesture to the dragModal
                     .gesture(drag)
             }
+        .KeyboardAwarePadding()
+        
         }
         .edgesIgnoringSafeArea(.all)
     }

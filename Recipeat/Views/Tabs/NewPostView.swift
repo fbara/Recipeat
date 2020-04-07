@@ -7,6 +7,11 @@
 //
 
 import SwiftUI
+import SPAlert
+
+enum new_StepOrIngredient {
+    case Step, Ingredient
+}
 
 struct NewPostView: View {
     
@@ -17,42 +22,45 @@ struct NewPostView: View {
     @State private var halfModal_shown = false
     @State private var halfModal_title = ""
     @State private var halfModal_textfield_placeholder = ""
-    @State private var halfModal_textfield_val = ""
-
+    @State private var halfModal_textfield1_val = ""
+    @State private var halfModal_textfield2_val = ""
+    @State private var halfModal_height: CGFloat = 380
+    @State private var newItem_type: new_StepOrIngredient = .Step
+    @State private var ingredientUnit_index = 0
     
     
     //sample data
-    var steps: [Step] = [
-//        Step(description: "add eggs", orderNumber: 0),
-//        Step(description: "add eggs", orderNumber: 1),
-//        Step(description: "add eggs", orderNumber: 2),
-//        Step(description: "add eggs", orderNumber: 3),
-//        Step(description: "add eggs", orderNumber: 4),
-//        Step(description: "add eggs", orderNumber: 5),
-//        Step(description: "add eggs", orderNumber: 6),
-//        Step(description: "add eggs", orderNumber: 7),
-//        Step(description: "add eggs", orderNumber: 8)
+    @State var steps: [Step] = [
+        //        Step(description: "add eggs", orderNumber: 0),
+        //        Step(description: "add eggs", orderNumber: 1),
+        //        Step(description: "add eggs", orderNumber: 2),
+        //        Step(description: "add eggs", orderNumber: 3),
+        //        Step(description: "add eggs", orderNumber: 4),
+        //        Step(description: "add eggs", orderNumber: 5),
+        //        Step(description: "add eggs", orderNumber: 6),
+        //        Step(description: "add eggs", orderNumber: 7),
+        //        Step(description: "add eggs", orderNumber: 8)
     ]
     
-    var ingredients: [Ingredient] = [
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 0),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
-//        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
-//        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
-//        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
-//        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 12)
+    @State var ingredients: [Ingredient] = [
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 0),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
+        //        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
+        //        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
+        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
+        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 12)
     ]
     
     
@@ -126,12 +134,12 @@ struct NewPostView: View {
                                     
                                     if ingredients.count > 0 {
                                         ForEach(ingredients, id: \.id) { thisIngredient in
-                                            Text("\(thisIngredient.amount) \(thisIngredient.name)")
+                                            Text("\(thisIngredient.amount.stringWithoutZeroFraction) \(thisIngredient.amountUnit.rawValue) \(thisIngredient.name)")
+                                                .padding(.bottom, 10)
                                         }.foregroundColor(Color.init(red: 108/255, green: 204/255, blue: 108/255))
                                     } else {
                                         Button(action: {
-                                            self.halfModal_title = "ADD A INGREDIENT"
-                                            self.halfModal_textfield_placeholder = "Enter new ingredient"
+                                            self.update_halfModal(title: "ADD AN INGREDIENT", placeholder: "Enter new ingredient", itemType: .Step, height: 470)
                                             self.halfModal_shown = true
                                         }) {
                                             Text("Add Some Ingredients")
@@ -147,8 +155,7 @@ struct NewPostView: View {
                         .frame(width: UIScreen.main.bounds.size.width/2)
                         .clipped()
                         Button(action: {
-                            self.halfModal_title = "ADD INGREDIENT"
-                            self.halfModal_textfield_placeholder = "Enter your ingredient"
+                            self.update_halfModal(title: "ADD AN INGREDIENT", placeholder: "Enter new ingredient", itemType: .Ingredient, height: 470)
                             self.halfModal_shown = true
                         }) {
                             Text("Add New")
@@ -156,7 +163,7 @@ struct NewPostView: View {
                                 .font(.headline)
                         }
                         
-                    
+                        
                     }
                     .background(Color.clear)
                     
@@ -171,12 +178,11 @@ struct NewPostView: View {
                                     
                                     if steps.count > 0 {
                                         ForEach(steps, id: \.id) { thisStep in
-                                            Text(thisStep.description)
+                                            Text("\(thisStep.orderNumber)," + thisStep.description)
                                         }.foregroundColor(Color.init(red: 108/255, green: 172/255, blue: 204/255))
                                     } else {
                                         Button(action: {
-                                            self.halfModal_title = "ADD A STEP"
-                                            self.halfModal_textfield_placeholder = "Enter your step"
+                                            self.update_halfModal(title: "ADD A STEP", placeholder: "Enter new step", itemType: .Step, height: 380)
                                             self.halfModal_shown = true
                                         }) {
                                             Text("Add Some Steps")
@@ -193,8 +199,7 @@ struct NewPostView: View {
                         .clipped()
                         
                         Button(action: {
-                            self.halfModal_title = "ADD A STEP"
-                            self.halfModal_textfield_placeholder = "Enter your step"
+                            self.update_halfModal(title: "ADD A STEP", placeholder: "Enter new step", itemType: .Step, height: 380)
                             self.halfModal_shown = true
                         }) {
                             Text("Add New")
@@ -208,7 +213,7 @@ struct NewPostView: View {
                     
                 }
                 Spacer()
-                .frame(height: 65)
+                    .frame(height: 65)
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
@@ -216,7 +221,7 @@ struct NewPostView: View {
                 VStack {
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach (0..<5) { _ in
+                            ForEach (0..<8) { _ in
                                 Rectangle()
                                     .frame(width: 200, height: 200)
                                     .background(Color.red)
@@ -230,30 +235,127 @@ struct NewPostView: View {
                 }
             }
             
-            HalfModalView(isShown: $halfModal_shown, modalHeight: 380) {
-                
-                
-                
+            HalfModalView(isShown: $halfModal_shown, modalHeight: halfModal_height) {
                 VStack {
                     Spacer().frame(height: 15)
                     Text("\(self.halfModal_title)").font(.headline)
-                    TextField("\(self.halfModal_textfield_placeholder)", text: self.$halfModal_textfield_val)
-                        .padding(10)
-                        .background(
-                            Rectangle()
-                                .cornerRadius(10)
-                                .foregroundColor(Color.init(red: 0.95, green: 0.95, blue: 0.95))
-                    )
-                        .padding(20)
                     
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 35))
-                        .foregroundColor(.init(red: 110/255, green: 210/255, blue: 110/255))
+                    VStack {
+                        HStack {
+                            if self.newItem_type == .Ingredient {
+                                TextField("#", text: self.$halfModal_textfield1_val)
+                                    .frame(width: 40)
+                                    .padding(10)
+                                    .background(
+                                        Rectangle()
+                                            .cornerRadius(10)
+                                            .foregroundColor(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+                                )
+                                    .padding(20)
+                                    .keyboardType(.numberPad)
+                            }
+                            
+                            TextField("\(self.halfModal_textfield_placeholder)", text: self.$halfModal_textfield2_val)
+                                .padding(10)
+                                .background(
+                                    Rectangle()
+                                        .cornerRadius(10)
+                                        .foregroundColor(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+                            )
+                                .padding(20)
+                        }
+                        
+                        if self.newItem_type == .Ingredient {
+                            Picker(selection: self.$ingredientUnit_index, label: Text("Unit")) {
+                                ForEach(0..<IngredientUnit.allCases.count) {
+                                    Text(IngredientUnit.allCases[$0].rawValue).tag($0)
+                                }
+                            }
+                            .labelsHidden()
+                            .frame(height: 90)
+                            .clipped()
+                            .padding()
+                        }
+                        
+                    }
+                    
+                    Button(action: {
+                        self.add_newItem()
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 35))
+                            .foregroundColor(.init(red: 110/255, green: 210/255, blue: 110/255))
+                    }
+                    
+                    
                     Spacer()
                 }
+            }
+        }
+    }
+    
+    func update_halfModal(title: String, placeholder: String, itemType: new_StepOrIngredient, height: CGFloat) {
+        halfModal_textfield1_val = ""
+        halfModal_textfield2_val = ""
+        halfModal_title = title
+        halfModal_textfield_placeholder = placeholder
+        newItem_type = itemType
+        halfModal_height = height
+    }
+    
+    func hideModal() {
+        
+        UIApplication.shared.endEditing()
+        halfModal_shown = false
+    }
+    
+    func possible_stringToDouble(_ stringToValidate: String) -> Double? {
+        
+        let val: Double? = Double(stringToValidate) ?? nil
+        
+        if let val = val {
+            return val
+        } else {
+            return nil
+        }
+        
+    }
+    
+    
+    func add_newItem() {
+        
+        if halfModal_textfield2_val == "" {
+            let alertView = SPAlertView(title: newItem_type == .Step ? "Please add a step." : "Please add an ingredient.",
+                                        message: "Make sure all text fields have an entry.",
+                                        preset: SPAlertPreset.error)
+            alertView.duration = 3
+            alertView.present()
+            
+        } else {
+            
+            if newItem_type == .Step {
+                steps.append(Step(description: halfModal_textfield2_val, orderNumber: steps.count))
+                hideModal()
                 
+            } else if newItem_type == .Ingredient {
                 
-                
+                if let amount = possible_stringToDouble(halfModal_textfield1_val) {
+                    
+                    let thisIngredientUnit = IngredientUnit.allCases[ingredientUnit_index]
+                    
+                    ingredients.append(Ingredient(name: halfModal_textfield2_val,
+                                                  amount: amount,
+                                                  amountUnit: thisIngredientUnit,
+                                                  orderNumber: ingredients.count))
+                    hideModal()
+                    
+                } else {
+                    let alertView = SPAlertView(title: "Check the amount",
+                                                message: "Please enter a number (i.e. \"1\" or \"3.4\")",
+                                                preset: SPAlertPreset.error)
+                    alertView.duration = 3
+                    alertView.present()
+                }
             }
         }
     }

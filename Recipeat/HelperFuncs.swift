@@ -31,6 +31,13 @@ extension GlobalEnvironment {
     }
 }
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+
 func fraction_progress(lowerLimit: Double = 0, upperLimit: Double, current: Double, inverted: Bool = false) -> Double {
     var val: Double = 0
     
@@ -69,5 +76,12 @@ enum DragState {
         case .dragging:
             return true
         }
+    }
+}
+
+extension Double {
+    //Removes trailing zeros from Doubles during display
+    var stringWithoutZeroFraction: String {
+        return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }

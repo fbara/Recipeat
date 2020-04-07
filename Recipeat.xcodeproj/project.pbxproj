@@ -15,6 +15,7 @@
 		AD9BC4632412CE2F003E3FD9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4622412CE2F003E3FD9 /* PostView.swift */; };
 		AD9BC4652412D14F003E3FD9 /* StoryCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */; };
 		AD9BC4672414B1DD003E3FD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC4662414B1DD003E3FD9 /* LoginView.swift */; };
+		AD9DB499243995B40018F3BE /* KeyboardAwareModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9DB498243995B40018F3BE /* KeyboardAwareModifier.swift */; };
 		ADB8F9BC240E26EE007D7C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9BB240E26EE007D7C31 /* AppDelegate.swift */; };
 		ADB8F9BE240E26EE007D7C31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9BD240E26EE007D7C31 /* SceneDelegate.swift */; };
 		ADB8F9C1240E26EE007D7C31 /* Recipeat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ADB8F9BF240E26EE007D7C31 /* Recipeat.xcdatamodeld */; };
@@ -65,6 +66,7 @@
 		AD9BC4622412CE2F003E3FD9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		AD9BC4642412D14F003E3FD9 /* StoryCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCircleView.swift; sourceTree = "<group>"; };
 		AD9BC4662414B1DD003E3FD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AD9DB498243995B40018F3BE /* KeyboardAwareModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAwareModifier.swift; sourceTree = "<group>"; };
 		ADB8F9B8240E26EE007D7C31 /* Recipeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB8F9BB240E26EE007D7C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADB8F9BD240E26EE007D7C31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,14 @@
 			path = ReusableViews;
 			sourceTree = "<group>";
 		};
+		AD9DB497243995830018F3BE /* View Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				AD9DB498243995B40018F3BE /* KeyboardAwareModifier.swift */,
+			);
+			path = "View Modifiers";
+			sourceTree = "<group>";
+		};
 		ADB8F9AF240E26EE007D7C31 = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +182,7 @@
 				ADC1B0D224271C200056DF85 /* ImagePicker.swift */,
 				ADB8F9EE240E271B007D7C31 /* Structs_Enums_Classes.swift */,
 				ADF86CF2241DEC4000790D38 /* HelperFuncs.swift */,
+				AD9DB497243995830018F3BE /* View Modifiers */,
 				ADB8F9F7240E2A25007D7C31 /* Views */,
 				ADB8F9C4240E26F0007D7C31 /* Assets.xcassets */,
 				ADB8F9C9240E26F0007D7C31 /* LaunchScreen.storyboard */,
@@ -467,6 +478,7 @@
 				ADB8F9C1240E26EE007D7C31 /* Recipeat.xcdatamodeld in Sources */,
 				AD44860524316A3E0047D5AB /* HalfModalView.swift in Sources */,
 				AD418B142414B9FE00C8C6BF /* SignUp.swift in Sources */,
+				AD9DB499243995B40018F3BE /* KeyboardAwareModifier.swift in Sources */,
 				ADB8F9BC240E26EE007D7C31 /* AppDelegate.swift in Sources */,
 				ADEE9B472423129E00239BAA /* NewPostView.swift in Sources */,
 				ADF86CF3241DEC4000790D38 /* HelperFuncs.swift in Sources */,
