@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import Firebase
 
 extension GlobalEnvironment {
     
@@ -37,6 +38,40 @@ extension UIApplication {
     }
 }
 
+extension Double {
+    //Removes trailing zeros from Doubles during display
+    var stringWithoutZeroFraction: String {
+        return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
+}
+
+//Turns our structure for Steps into an array of arrays for Firebase
+extension Array where Element == Step {
+    func formatForFirebase() -> [[String: Any]] {
+        var returnVal:[[String: Any]] = []
+    
+    for element in self {
+    returnVal.append(element.dictionary)
+    }
+    
+    return returnVal
+    
+    }
+}
+
+//Turns our structure for Ingredients into an array of arrays for Firebase
+extension Array where Element == Ingredient {
+    func formatForFirebase() -> [[String: Any]] {
+        var returnVal:[[String: Any]] = []
+    
+    for element in self {
+        returnVal.append(element.dictionary)
+    }
+    
+    return returnVal
+    
+    }
+}
 
 func fraction_progress(lowerLimit: Double = 0, upperLimit: Double, current: Double, inverted: Bool = false) -> Double {
     var val: Double = 0
@@ -55,7 +90,7 @@ func fraction_progress(lowerLimit: Double = 0, upperLimit: Double, current: Doub
         return val
     }
 }
-
+ 
 enum DragState {
     case inactive
     case dragging(translation: CGSize)
@@ -79,9 +114,23 @@ enum DragState {
     }
 }
 
-extension Double {
-    //Removes trailing zeros from Doubles during display
-    var stringWithoutZeroFraction: String {
-        return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+//Saves data to Firestore
+func firestoreSubmit_data(docRef_string: String, dataToSave: [String: Any], completion: @escaping (Any) -> Void, showDetails: Bool = false) {
+    
+    let docRef = Firestore.firestore().document(docRef_string)
+    
+    print("setting data")
+    
+    docRef.setData(dataToSave) { (error) in
+        if let error = error {
+            print("Error: \(error)")
+            completion(error)
+        } else {
+            print("data uploaded successfully")
+            if showDetails {
+                print("dataUploaded = \(dataToSave)")
+            }
+        }
     }
 }
+

@@ -15,6 +15,8 @@ enum new_StepOrIngredient {
 
 struct NewPostView: View {
     
+    @EnvironmentObject var env: GlobalEnvironment
+    
     @State private var showSheet = false
     @State private var showImagePicker = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
@@ -67,7 +69,7 @@ struct NewPostView: View {
     var body: some View {
         
         ZStack {
-            VStack {
+            VStack(spacing: 0) {
                 Spacer()
                     .frame(height: 65)
                 ZStack {
@@ -84,7 +86,7 @@ struct NewPostView: View {
                                 .scaledToFit()
                                 .padding(130)
                                 .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
-                                .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+                                .background(Color.init(red: 1, green: 1, blue: 1))
                         }
                     }
                     VStack {
@@ -212,6 +214,42 @@ struct NewPostView: View {
                     
                     
                 }
+                .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+                
+                Button(action: {
+                    if let thisImage = self.image {
+                        let thisRecipePost = RecipePost(steps: self.steps,
+                                                        ingredients: self.ingredients,
+                                                        postingUser: self.env.currentUser.establishedID,
+                                                        description: "",
+                                                        numberOfLikes: 0,
+                                                        image: Image(uiImage: thisImage)
+                            )
+                        
+                        print(thisRecipePost.dictionary)
+                        
+                        firestoreSubmit_data(docRef_string: "recipe/\(thisRecipePost.id)", dataToSave: thisRecipePost.dictionary, completion: { _ in })
+                        
+                    } else {
+                        let alertView = SPAlertView(title: "Add a photo",
+                                                    message: "You can't add a recipe without a photo.",
+                                                    preset: SPAlertPreset.error)
+                        alertView.duration = 3
+                        alertView.present()
+                    }
+                    
+                }) {
+                    Text("Submit Recipe")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(25)
+                        .frame(height: 48)
+                        .background(darkBlue)
+                        .cornerRadius(24)
+                        .padding(10)
+                }
+
+                
                 Spacer()
                     .frame(height: 65)
             }
