@@ -43,7 +43,6 @@ struct HalfModalView<Content: View>: View {
                     .background(isShown ? Color.black.opacity(0.5 * fraction_progress(lowerLimit: 0, upperLimit: Double(modalHeight), current: Double(dragState.translation.height), inverted: true)) : Color.clear)
                     //Animate the color changes
                     .animation(.interpolatingSpring(stiffness: 100.0, damping: 30.0, initialVelocity: 10.0))
-                    //.animation(.interpolatingSpring(stiffness: 100.0, damping: 30.0, initialVelocity: 10.0))
                     //Tap gesture to hide view when tapping anywhere outside the model view
                     .gesture(TapGesture().onEnded { _ in
                         //Hide the keyboard if visible

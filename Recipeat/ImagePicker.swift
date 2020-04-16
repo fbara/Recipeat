@@ -12,7 +12,7 @@ import SwiftUI
 //---------ImagePicker - UIViewControllerRepresentable-------------
 struct imagePicker: UIViewControllerRepresentable {
     
-    @Binding var image: UIImage?
+    @Binding var images: [Identifiable_UIImage]
     
     typealias UIViewControllerType = UIImagePickerController
     typealias Coordinator = imagePickerCoordinator
@@ -29,7 +29,7 @@ struct imagePicker: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> imagePickerCoordinator {
-        return imagePickerCoordinator(image: $image)
+        return imagePickerCoordinator(images: $images)
     }
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<imagePicker>) {
@@ -42,16 +42,18 @@ struct imagePicker: UIViewControllerRepresentable {
 //---------COORDINATOR-------------
 class imagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    @Binding var image: UIImage?
+    @Binding var images: [Identifiable_UIImage]
     
-    init(image: Binding<UIImage?>) {
-        _image = image
+    init(images: Binding<[Identifiable_UIImage]>) {
+        _images = images
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let uiimage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            image = uiimage
+            images.append(
+                Identifiable_UIImage(image: uiimage)
+            )
         }
     }
 }

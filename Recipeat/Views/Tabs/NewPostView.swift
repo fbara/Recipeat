@@ -9,6 +9,11 @@
 import SwiftUI
 import SPAlert
 
+struct Identifiable_UIImage: Identifiable {
+    var id = UUID()
+    var image: UIImage
+}
+
 enum new_StepOrIngredient {
     case Step, Ingredient
 }
@@ -20,7 +25,7 @@ struct NewPostView: View {
     @State private var showSheet = false
     @State private var showImagePicker = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
-    @State private var image: UIImage?
+    @State private var images: [Identifiable_UIImage] = []
     @State private var halfModal_shown = false
     @State private var halfModal_title = ""
     @State private var halfModal_textfield_placeholder = ""
@@ -32,38 +37,9 @@ struct NewPostView: View {
     
     
     //sample data
-    @State var steps: [Step] = [
-        //        Step(description: "add eggs", orderNumber: 0),
-        //        Step(description: "add eggs", orderNumber: 1),
-        //        Step(description: "add eggs", orderNumber: 2),
-        //        Step(description: "add eggs", orderNumber: 3),
-        //        Step(description: "add eggs", orderNumber: 4),
-        //        Step(description: "add eggs", orderNumber: 5),
-        //        Step(description: "add eggs", orderNumber: 6),
-        //        Step(description: "add eggs", orderNumber: 7),
-        //        Step(description: "add eggs", orderNumber: 8)
-    ]
+    @State var steps: [Step] = []
     
-    @State var ingredients: [Ingredient] = [
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 0),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
-        //        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 13),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 22),
-        //        Ingredient(name: "parsley", amount: 2, amountUnit: .whole, orderNumber: 34),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 44),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 52),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 16),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 18),
-        //        Ingredient(name: "eggs", amount: 3, amountUnit: .whole, orderNumber: 17),
-        //        Ingredient(name: "parsley", amount: 3, amountUnit: .whole, orderNumber: 12)
-    ]
+    @State var ingredients: [Ingredient] = []
     
     
     var body: some View {
@@ -73,13 +49,22 @@ struct NewPostView: View {
                 Spacer()
                     .frame(height: 65)
                 ZStack {
-                    HStack {
-                        if image != nil {
-                            Image(uiImage: image!)
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
-                                .scaledToFit()
+                    HStack(spacing: 0) {
+                        if images.count > 0 {
+                            ScrollView(.horizontal) {
+                                HStack(spacing: 0) {
+                                    ForEach (self.images, id: \.id) { i in
+                                        Image(uiImage: i.image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: UIScreen.main.bounds.size.width, height: 300)
+                                        
+                                    }
+                                }
                                 .background(Color.black)
+                            }
+                            .background(Color.black)
+                            
                         } else {
                             Button(action: {
                                 self.showSheet.toggle()
@@ -88,8 +73,8 @@ struct NewPostView: View {
                                     .renderingMode(.original)
                                     .resizable()
                                     .scaledToFit()
-                                    .padding(130)
-                                    .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
+                                    .padding(50)
+                                    .frame(width: UIScreen.main.bounds.size.width, height: 300)
                                     .background(Color.init(red: 1, green: 1, blue: 1))
                             }
                             
@@ -128,7 +113,7 @@ struct NewPostView: View {
                         }
                         Spacer()
                         
-                    }
+                    }.frame(height: 300)
                     
                 }
                 VStack {
@@ -148,8 +133,11 @@ struct NewPostView: View {
                                         if ingredients.count > 0 {
                                             ForEach(ingredients, id: \.id) { thisIngredient in
                                                 Text("\(thisIngredient.amount.stringWithoutZeroFraction) \(thisIngredient.amountUnit.rawValue) \(thisIngredient.name)")
-                                                    .padding(.bottom, 10)
-                                            }.foregroundColor(Color.init(red: 108/255, green: 204/255, blue: 108/255))
+                                            }.foregroundColor(Color.init(red: 0.3, green: 0.3, blue: 0.3))
+                                                .padding(5).padding(.leading, 8).padding(.trailing, 3)
+                                                .background(Color.init(red: 0.85, green: 0.85, blue: 0.85))
+                                                .padding(.bottom, 4)
+                                                .cornerRadius(5)
                                         } else {
                                             Button(action: {
                                                 self.update_halfModal(title: "ADD AN INGREDIENT", placeholder: "Enter new ingredient", itemType: .Step, height: 470)
@@ -203,7 +191,10 @@ struct NewPostView: View {
                                         if steps.count > 0 {
                                             ForEach(steps, id: \.id) { thisStep in
                                                 Text("\(thisStep.orderNumber)," + thisStep.description)
-                                            }.foregroundColor(Color.init(red: 108/255, green: 172/255, blue: 204/255))
+                                                .padding(5).padding(.leading, 8).padding(.trailing, 3)
+                                                .background(Color.init(red: 0.85, green: 0.85, blue: 0.85))
+                                                .padding(.bottom, 4)
+                                            }.foregroundColor(Color.init(red: 0.3, green: 0.3, blue: 0.3))
                                         } else {
                                             Button(action: {
                                                 self.update_halfModal(title: "ADD A STEP", placeholder: "Enter new step", itemType: .Step, height: 380)
@@ -245,19 +236,19 @@ struct NewPostView: View {
                         
                     }
                     Button(action: {
-                        if let thisImage = self.image {
+                        if self.images.count > 0 {
                             let thisRecipePost = RecipePost(steps: self.steps,
                                                             ingredients: self.ingredients,
                                                             postingUser: self.env.currentUser.establishedID,
                                                             description: "",
                                                             numberOfLikes: 0,
-                                                            image: Image(uiImage: thisImage)
+                                                            image: Image(uiImage: self.images[0].image)
                             )
                             
                             print(thisRecipePost.dictionary)
                             
                             firestoreSubmit_data(docRef_string: "recipe/\(thisRecipePost.id)", dataToSave: thisRecipePost.dictionary, completion: { _ in })
-                            uploadImage("recipe_\(thisRecipePost.id)_0", image: thisImage, completion: {_ in })
+                            uploadImage("recipe_\(thisRecipePost.id)_0", image: self.images[0].image, completion: {_ in })
                             
                         } else {
                             let alertView = SPAlertView(title: "Add a photo",
@@ -289,19 +280,30 @@ struct NewPostView: View {
             .navigationBarHidden(true)
             .sheet(isPresented: $showImagePicker) {
                 VStack(spacing: 0) {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach (0..<8) { _ in
-                                Rectangle()
-                                    .frame(width: 200, height: 200)
-                                    .background(Color.red)
-                                    .shadow(radius: 3)
+                    if self.images.count > 0 {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach (self.images, id: \.id) { i in
+                                    Image(uiImage: i.image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 200)
+                                        .shadow(radius: 3)
+                                }
                             }
+                            .padding()
                         }
-                        .padding()
+                        .frame(height: 240)
+                        .background(Color.white)
+                    } else {
+                        HStack {
+                            Spacer()
+                            Text("Please select an image from below.")
+                            Spacer()
+                            
+                        }.frame(height: 240)
+                            .background(Color.white)
                     }
-                    .frame(height: 240)
-                    .background(Color.white)
                     HStack {
                         Button(action: { self.showImagePicker.toggle()}) {
                             Text("Done")
@@ -315,7 +317,7 @@ struct NewPostView: View {
                         }
                     }.frame(height: 57).frame(maxWidth: .infinity).background(Color.white)
                         .zIndex(1)
-                    imagePicker(image: self.$image, sourceType: self.sourceType)
+                    imagePicker(images: self.$images, sourceType: self.sourceType)
                         .offset(y: -57)
                 }
             }
