@@ -115,7 +115,7 @@ enum DragState {
     }
 }
 
-//Saves data to Firestore
+//Submits data to Firestore
 func firestoreSubmit_data(docRef_string: String, dataToSave: [String: Any], completion: @escaping (Any) -> Void, showDetails: Bool = false) {
     
     let docRef = Firestore.firestore().document(docRef_string)
@@ -130,6 +130,26 @@ func firestoreSubmit_data(docRef_string: String, dataToSave: [String: Any], comp
             print("data uploaded successfully")
             if showDetails {
                 print("dataUploaded = \(dataToSave)")
+            }
+        }
+    }
+}
+
+//Updates data to Firestore
+func firestoreUpdate_data(docRef_string: String, dataToUpdate: [String: Any], completion: @escaping (Any) -> Void, showDetails: Bool = false) {
+    
+    let docRef = Firestore.firestore().document(docRef_string)
+    
+    print("updating data")
+    
+    docRef.setData(dataToUpdate, merge: true) { (error) in
+        if let error = error {
+            print("Error: \(error)")
+            completion(error)
+        } else {
+            print("data uploaded successfully")
+            if showDetails {
+                print("dataUploaded = \(dataToUpdate)")
             }
         }
     }

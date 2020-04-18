@@ -78,6 +78,7 @@ struct LoginView: View {
                                                                                  password: document.data()["password"] as? String ?? "",
                                                                                  name: document.data()["name"] as? String ?? "",
                                                                                  email: document.data()["email"] as? String ?? "",
+                                                                                 publishedRecipes: document.data()["publishedRecipes"] as? [String] ?? [],
                                                                                  document.documentID)
                                                 
                                                 

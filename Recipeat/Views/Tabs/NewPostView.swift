@@ -247,7 +247,18 @@ struct NewPostView: View {
                             
                             print(thisRecipePost.dictionary)
                             
-                            firestoreSubmit_data(docRef_string: "recipe/\(thisRecipePost.id)", dataToSave: thisRecipePost.dictionary, completion: { _ in })
+                            self.env.currentUser.publishedRecipes.append(thisRecipePost.id.uuidString)
+                            
+                            firestoreSubmit_data(docRef_string: "recipe/\(thisRecipePost.id)", dataToSave: thisRecipePost.dictionary, completion: { _ in
+                                let alertView = SPAlertView(title: "Recipe Submitted",
+                                                            message: "Recipe submitted successfully!",
+                                                            preset: SPAlertPreset.done)
+                                alertView.duration = 3
+                                alertView.present()
+                            })
+                            
+                            firestoreUpdate_data(docRef_string: "users/\(self.env.currentUser.establishedID)", dataToUpdate: ["publishedRecipes" : self.env.currentUser.publishedRecipes], completion: { _ in })
+                            
                             uploadImage("recipe_\(thisRecipePost.id)_0", image: self.images[0].image, completion: {_ in })
                             
                         } else {
