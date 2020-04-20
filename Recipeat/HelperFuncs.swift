@@ -125,12 +125,12 @@ func firestoreSubmit_data(docRef_string: String, dataToSave: [String: Any], comp
     docRef.setData(dataToSave) { (error) in
         if let error = error {
             print("Error: \(error)")
-            completion(error)
         } else {
             print("data uploaded successfully")
             if showDetails {
                 print("dataUploaded = \(dataToSave)")
             }
+            completion(true)
         }
     }
 }
@@ -145,17 +145,18 @@ func firestoreUpdate_data(docRef_string: String, dataToUpdate: [String: Any], co
     docRef.setData(dataToUpdate, merge: true) { (error) in
         if let error = error {
             print("Error: \(error)")
-            completion(error)
         } else {
             print("data uploaded successfully")
             if showDetails {
                 print("dataUploaded = \(dataToUpdate)")
             }
+            completion(true)
         }
     }
 }
 
 func uploadImage(_ referenceString: String, image: UIImage, completion: @escaping (Any) -> Void, showDetails: Bool = false) {
+    
     
     if let imageData = image.jpegData(compressionQuality: 1) {
         let storage = Storage.storage()
@@ -165,6 +166,7 @@ func uploadImage(_ referenceString: String, image: UIImage, completion: @escapin
                 completion(err)
             } else {
                 print("Image uploaded successfully")
+                completion(true)
             }
             
         }
