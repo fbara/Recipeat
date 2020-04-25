@@ -55,14 +55,8 @@ struct MeView: View {
                 ScrollView {
                     ForEach(0..<env.currentUser.publishedRecipes.count) { i in
                         
-                        HStack {
-                            Spacer()
-                            Text("Recipe - \(self.env.currentUser.publishedRecipes[i])")
-                                
-                        }.frame(height: 50)
-                        .background(Color.white.opacity(
-                            Double(i)/20
-                        ))
+                        Me_PostView()
+                        
                     }
                 }.background(Color.red)
             }
