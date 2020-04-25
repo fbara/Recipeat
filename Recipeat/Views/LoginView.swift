@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestore
 import SPAlert
 
 struct LoginView: View {
@@ -119,6 +120,9 @@ struct LoginView: View {
                                         print("Login good with remembered user")
                                         print(rememberedUser)
                                         self.env.currentUser = rememberedUser
+                                        
+                                        self.env.initialize_CurrentUser()
+                                        
                                     } else {
                                         print("Couldn't unwrap user")
                                         print(lastSession)

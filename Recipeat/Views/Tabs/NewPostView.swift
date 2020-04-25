@@ -9,10 +9,6 @@
 import SwiftUI
 import SPAlert
 
-struct Identifiable_UIImage: Identifiable {
-    var id = UUID()
-    var image: UIImage
-}
 
 enum new_StepOrIngredient {
     case Step, Ingredient
@@ -249,6 +245,8 @@ struct NewPostView: View {
                                                             preset: SPAlertPreset.done)
                                 alertView.duration = 3
                                 alertView.present()
+                                
+                                self.clearPage()
                             }
                         }
                         
@@ -277,7 +275,7 @@ struct NewPostView: View {
                             
                             for i in 0...self.images.count - 1 {
                                 let image = self.images[i].image
-                                uploadImage("recipe_\(thisRecipePost.id)_0", image: image, completion: {_ in
+                                uploadImage("recipe_\(thisRecipePost.id)_\(i)", image: image, completion: {_ in
                                     actionsCompleted += 1
                                     check_success()
                                 })
@@ -479,6 +477,14 @@ struct NewPostView: View {
                 }
             }
         }
+    }
+    
+    func clearPage() {
+        images.removeAll()
+        halfModal_textfield1_val = ""
+        halfModal_textfield2_val = ""
+        ingredients = []
+        steps = []
     }
 }
 

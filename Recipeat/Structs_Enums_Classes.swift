@@ -9,6 +9,10 @@
 import Foundation
 import SwiftUI
 
+struct trunc_RecipePost: Identifiable {
+    var id = UUID()
+}
+
 struct RecipePost: Identifiable {
     var id = UUID()
     var steps: [Step]
@@ -28,6 +32,11 @@ struct RecipePost: Identifiable {
             "numberOfLikes": numberOfLikes
         ]
     }
+}
+
+struct Identifiable_UIImage: Identifiable {
+    var id = UUID()
+    var image: UIImage
 }
 
 class user: NSObject, Identifiable, NSCoding {
