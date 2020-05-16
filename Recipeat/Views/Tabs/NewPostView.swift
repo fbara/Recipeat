@@ -107,6 +107,47 @@ struct NewPostView: View {
                     }.frame(height: 300)
                     
                 }
+                .sheet(isPresented: $showImagePicker) {
+                    VStack(spacing: 0) {
+                        if self.images.count > 0 {
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(self.images, id: \.id) { i in
+                                         Image(uiImage: i.image)
+                                        .resizable()
+                                        .scaledToFit()
+                                            .frame(height: 200)
+                                        .shadow(radius: 3)
+                                    }
+                                }.padding()
+                            }
+                            .frame(height: 240)
+                            .background(Color.white)
+                        } else {
+                            HStack {
+                                Spacer()
+                                Text("Please select and image from below")
+                                Spacer()
+                            }.frame(height: 240)
+                                .background(Color.white)
+                        }
+                        HStack {
+                            Button(action: { self.showImagePicker.toggle()}) {
+                                Text("DONE")
+                                .padding()
+                                .font(.system(size:12, weight:.bold))
+                                .foregroundColor(.white)
+                                .frame(height:24)
+                                .background(mediumBlue)
+                                .cornerRadius(12)
+                            }
+                        }
+                        .frame(height: 57).frame(maxWidth: .infinity).background(Color.white)
+                    .zIndex(1)
+                        imagePicker(images: self.$images, sourceType: self.sourceType).offset(y: -57)
+                    }
+                }
+                
                 VStack {
                     HStack(spacing: 0) {
                         //Ingredients
@@ -231,7 +272,7 @@ struct NewPostView: View {
                         //self.submitRecipe()
                         
                     }) {
-                        Text("Submit Recipe")
+                        Text("Review Recipe")
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding(20)
@@ -241,6 +282,9 @@ struct NewPostView: View {
                             .shadow(radius: 3)
                             .padding(.top, 10)
                     }
+                    .sheet(isPresented: $showReviewSheet) {
+                        ModifyRecipePost(binding_recipePost: self.$newRecipePost)
+                    }
                     
                     Spacer()
                         .frame(height: 65)
@@ -249,9 +293,6 @@ struct NewPostView: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
-            .sheet(isPresented: $showReviewSheet) {
-                ModifyRecipePost(binding_recipePost: self.$newRecipePost)
-            }
             
             HalfModalView(isShown: $halfModal_shown, modalHeight: halfModal_height) {
                 
