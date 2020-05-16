@@ -7,9 +7,14 @@
 //
 
 import SwiftUI
+import SPAlert
 
 struct ModifyRecipePost: View {
+    @EnvironmentObject var env: GlobalEnvironment
+    
     @Binding var binding_recipePost: RecipePost
+    @Binding var images:  [Identifiable_UIImage]
+    @Binding var isShown: Bool
     
     
     @State private var editingIngredients = false
@@ -19,10 +24,27 @@ struct ModifyRecipePost: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("This will contain the images")
-                    .frame(height: 200)
-                
+            HStack(spacing: 0) {
+                if images.count > 0 {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 0) {
+                            ForEach (self.images, id: \.id) { i in
+                                Image(uiImage: i.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: UIScreen.main.bounds.size.width, height: 300)
+                                
+                            }
+                        }
+                        .background(Color.black)
+                    }
+                    .background(Color.black)
+                    
+                } else {
+                    Text("Please go back and select at least 1 image.")
+                        .frame(height: 300)
+                    
+                }
             }
             TextField("Name your recipe", text: $binding_recipePost.title)
                 .padding()
@@ -96,9 +118,10 @@ struct ModifyRecipePost: View {
                 editingSteps = false
             }
         }
-        
-        
     }
+    
+
+    
 }
 
 //struct ModifyRecipePost_Previews: PreviewProvider {

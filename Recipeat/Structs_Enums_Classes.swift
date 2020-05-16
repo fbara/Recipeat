@@ -132,15 +132,13 @@ struct Ingredient: Identifiable {
     var name: String
     var amount: Double
     var amountUnit: IngredientUnit
-    var orderNumber: Int
     
     var dictionary: [String: Any] {
         return [
             "id": id.uuidString,
             "name": name,
             "amount": amount,
-            "amountUnit": amountUnit.rawValue,
-            "orderNumber": orderNumber,
+            "amountUnit": amountUnit.rawValue
         ]
     }
 }
@@ -148,14 +146,11 @@ struct Ingredient: Identifiable {
 struct Step: Identifiable {
     var id = UUID()
     var description: String
-    var orderNumber: Int
     
     var dictionary: [String: Any] {
         return [
             "id": id.uuidString,
-            "description": description,
-            "orderNumber": orderNumber
-        ]
+            "description": description        ]
     }
 }
 

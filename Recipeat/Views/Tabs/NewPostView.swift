@@ -133,7 +133,7 @@ struct NewPostView: View {
                         }
                         HStack {
                             Button(action: { self.showImagePicker.toggle()}) {
-                                Text("DONE")
+                                Text("DONE \(self.images.count) Images")
                                 .padding()
                                 .font(.system(size:12, weight:.bold))
                                 .foregroundColor(.white)
@@ -222,7 +222,7 @@ struct NewPostView: View {
                                         
                                         if newRecipePost.steps.count > 0 {
                                             ForEach(newRecipePost.steps, id: \.id) { thisStep in
-                                                Text("\(thisStep.orderNumber)," + thisStep.description)
+                                                Text(thisStep.description)
                                                 .padding(5).padding(.leading, 8).padding(.trailing, 3)
                                                 .background(Color.init(red: 0.85, green: 0.85, blue: 0.85))
                                                 .padding(.bottom, 4)
@@ -283,7 +283,25 @@ struct NewPostView: View {
                             .padding(.top, 10)
                     }
                     .sheet(isPresented: $showReviewSheet) {
-                        ModifyRecipePost(binding_recipePost: self.$newRecipePost)
+                        VStack {
+                            ModifyRecipePost(binding_recipePost: self.$newRecipePost, images: self.$images, isShown: self.$showSheet)
+                            
+                            Button(action: {
+                                
+                                self.submitRecipe()
+                                
+                            }) {
+                                Text("Submit")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding(20)
+                                    .frame(height: 48)
+                                    .frame(maxWidth: .infinity)
+                                    .background(vDarkBlue)
+                                    .shadow(radius: 3)
+                                    .padding(.top, 10)
+                            }
+                        }
                     }
                     
                     Spacer()
@@ -394,7 +412,7 @@ struct NewPostView: View {
         } else {
             
             if newItem_type == .Step {
-                newRecipePost.steps.append(Step(description: halfModal_textfield2_val, orderNumber: newRecipePost.steps.count))
+                newRecipePost.steps.append(Step(description: halfModal_textfield2_val))
                 hideModal()
                 
             } else if newItem_type == .Ingredient {
@@ -405,8 +423,7 @@ struct NewPostView: View {
                     
                     newRecipePost.ingredients.append(Ingredient(name: halfModal_textfield2_val,
                                                   amount: amount,
-                                                  amountUnit: thisIngredientUnit,
-                                                  orderNumber: newRecipePost.ingredients.count))
+                                                  amountUnit: thisIngredientUnit))
                     hideModal()
                     
                 } else {
@@ -422,8 +439,6 @@ struct NewPostView: View {
     
     func clearPage() {
         images.removeAll()
-        halfModal_textfield1_val = ""
-        halfModal_textfield2_val = ""
         newRecipePost = RecipePost.init(title: "", steps: [], ingredients: [], postingUser: "", description: "", numberOfLikes: 0, image: Image(systemName: ""))
     }
     
@@ -442,10 +457,13 @@ struct NewPostView: View {
                 alertView.present()
 
                 self.clearPage()
+
+                self.showReviewSheet = false
             }
         }
 
         if self.images.count > 0 {
+            newRecipePost.postingUser = self.env.currentUser.establishedID
             let thisRecipePost = newRecipePost
 
             print(thisRecipePost.dictionary)
@@ -479,6 +497,7 @@ struct NewPostView: View {
             alertView.present()
         }
     }
+
 }
 
 
