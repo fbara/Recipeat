@@ -10,32 +10,27 @@ import SwiftUI
 import SPAlert
 
 
-enum new_StepOrIngredient {
-    case Step, Ingredient
-}
-
 struct NewPostView: View {
     
     @EnvironmentObject var env: GlobalEnvironment
     
-    @State private var showSheet = false
-    @State private var showImagePicker = false
-    @State private var sourceType: UIImagePickerController.SourceType = .camera
-    @State private var images: [Identifiable_UIImage] = []
-    @State private var halfModal_shown = false
-    @State private var halfModal_title = ""
-    @State private var halfModal_textfield_placeholder = ""
-    @State private var halfModal_textfield1_val = ""
-    @State private var halfModal_textfield2_val = ""
-    @State private var halfModal_height: CGFloat = 380
-    @State private var newItem_type: new_StepOrIngredient = .Step
-    @State private var ingredientUnit_index = 0
+    @State  var showReviewSheet = false
+    @State  var showSheet = false
+    @State  var showImagePicker = false
+    @State  var sourceType: UIImagePickerController.SourceType = .camera
+    @State  var images: [Identifiable_UIImage] = []
     
+    @State  var halfModal_shown = false
+    @State  var halfModal_title = ""
+    @State  var halfModal_textfield_placeholder = ""
+    @State  var halfModal_textfield1_val = ""
+    @State  var halfModal_textfield2_val = ""
+    @State  var halfModal_height: CGFloat = 380
     
-    //sample data
-    @State var steps: [Step] = []
+    @State  var newItem_type: new_StepOrIngredient = .Step
+    @State  var ingredientUnit_index = 0
     
-    @State var ingredients: [Ingredient] = []
+    @State var newRecipePost = RecipePost(title: "", steps: [], ingredients: [], postingUser: "", description: "", numberOfLikes: 0, image: Image(systemName: ""))
     
     
     var body: some View {
@@ -126,8 +121,8 @@ struct NewPostView: View {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         
-                                        if ingredients.count > 0 {
-                                            ForEach(ingredients, id: \.id) { thisIngredient in
+                                        if newRecipePost.ingredients.count > 0 {
+                                            ForEach(newRecipePost.ingredients, id: \.id) { thisIngredient in
                                                 Text("\(thisIngredient.amount.stringWithoutZeroFraction) \(thisIngredient.amountUnit.rawValue) \(thisIngredient.name)")
                                             }.foregroundColor(Color.init(red: 0.3, green: 0.3, blue: 0.3))
                                                 .padding(5).padding(.leading, 8).padding(.trailing, 3)
@@ -184,8 +179,8 @@ struct NewPostView: View {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         
-                                        if steps.count > 0 {
-                                            ForEach(steps, id: \.id) { thisStep in
+                                        if newRecipePost.steps.count > 0 {
+                                            ForEach(newRecipePost.steps, id: \.id) { thisStep in
                                                 Text("\(thisStep.orderNumber)," + thisStep.description)
                                                 .padding(5).padding(.leading, 8).padding(.trailing, 3)
                                                 .background(Color.init(red: 0.85, green: 0.85, blue: 0.85))
@@ -232,76 +227,20 @@ struct NewPostView: View {
                         
                     }
                     Button(action: {
-                        
-                        var actionsToComplete = 2 + self.images.count
-                        var actionsCompleted = 0
-                        
-                        func check_success() {
-                            print("\(actionsCompleted)/\(actionsToComplete)")
-                            if actionsCompleted == actionsToComplete {
-                                
-                                let alertView = SPAlertView(title: "Recipe Submitted",
-                                                            message: "Recipe submitted successfully!",
-                                                            preset: SPAlertPreset.done)
-                                alertView.duration = 3
-                                alertView.present()
-                                
-                                self.clearPage()
-                            }
-                        }
-                        
-                        if self.images.count > 0 {
-                            let thisRecipePost = RecipePost(steps: self.steps,
-                                                            ingredients: self.ingredients,
-                                                            postingUser: self.env.currentUser.establishedID,
-                                                            description: "",
-                                                            numberOfLikes: 0,
-                                                            image: Image(uiImage: self.images[0].image)
-                            )
-                            
-                            print(thisRecipePost.dictionary)
-                            
-                            self.env.currentUser.publishedRecipes.append(thisRecipePost.id.uuidString)
-                            
-                            firestoreSubmit_data(docRef_string: "recipe/\(thisRecipePost.id)", dataToSave: thisRecipePost.dictionary, completion: { _ in
-                                actionsCompleted += 1
-                                    check_success()
-                            })
-                            
-                            firestoreUpdate_data(docRef_string: "users/\(self.env.currentUser.establishedID)", dataToUpdate: ["publishedRecipes" : self.env.currentUser.publishedRecipes], completion: { _ in
-                                actionsCompleted += 1
-                                check_success()
-                            })
-                            
-                            for i in 0...self.images.count - 1 {
-                                let image = self.images[i].image
-                                uploadImage("recipe_\(thisRecipePost.id)_\(i)", image: image, completion: {_ in
-                                    actionsCompleted += 1
-                                    check_success()
-                                })
-                            }
-                            
-                            
-                        } else {
-                            let alertView = SPAlertView(title: "Add a photo",
-                                                        message: "You can't add a recipe without a photo.",
-                                                        preset: SPAlertPreset.error)
-                            alertView.duration = 3
-                            alertView.present()
-                        }
+                        self.showReviewSheet.toggle()
+                        //self.submitRecipe()
                         
                     }) {
                         Text("Submit Recipe")
-                            .padding(10)
                             .font(.headline)
                             .foregroundColor(.white)
-                            .padding(25)
+                            .padding(20)
                             .frame(height: 48)
                             .frame(maxWidth: .infinity)
                             .background(vDarkBlue)
                             .shadow(radius: 3)
+                            .padding(.top, 10)
                     }
-                    
                     
                     Spacer()
                         .frame(height: 65)
@@ -310,51 +249,12 @@ struct NewPostView: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
-            .sheet(isPresented: $showImagePicker) {
-                VStack(spacing: 0) {
-                    if self.images.count > 0 {
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach (self.images, id: \.id) { i in
-                                    Image(uiImage: i.image)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: 200)
-                                        .shadow(radius: 3)
-                                }
-                            }
-                            .padding()
-                        }
-                        .frame(height: 240)
-                        .background(Color.white)
-                    } else {
-                        HStack {
-                            Spacer()
-                            Text("Please select an image from below.")
-                            Spacer()
-                            
-                        }.frame(height: 240)
-                            .background(Color.white)
-                    }
-                    HStack {
-                        Button(action: { self.showImagePicker.toggle()}) {
-                            Text("Done")
-                                .padding()
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundColor(.white)
-                                .frame(height: 24)
-                                .background(mediumBlue)
-                                .cornerRadius(12)
-                            
-                        }
-                    }.frame(height: 57).frame(maxWidth: .infinity).background(Color.white)
-                        .zIndex(1)
-                    imagePicker(images: self.$images, sourceType: self.sourceType)
-                        .offset(y: -57)
-                }
+            .sheet(isPresented: $showReviewSheet) {
+                ModifyRecipePost(binding_recipePost: self.$newRecipePost)
             }
             
             HalfModalView(isShown: $halfModal_shown, modalHeight: halfModal_height) {
+                
                 VStack {
                     Spacer().frame(height: 15)
                     Text("\(self.halfModal_title)").font(.headline)
@@ -453,7 +353,7 @@ struct NewPostView: View {
         } else {
             
             if newItem_type == .Step {
-                steps.append(Step(description: halfModal_textfield2_val, orderNumber: steps.count))
+                newRecipePost.steps.append(Step(description: halfModal_textfield2_val, orderNumber: newRecipePost.steps.count))
                 hideModal()
                 
             } else if newItem_type == .Ingredient {
@@ -462,10 +362,10 @@ struct NewPostView: View {
                     
                     let thisIngredientUnit = IngredientUnit.allCases[ingredientUnit_index]
                     
-                    ingredients.append(Ingredient(name: halfModal_textfield2_val,
+                    newRecipePost.ingredients.append(Ingredient(name: halfModal_textfield2_val,
                                                   amount: amount,
                                                   amountUnit: thisIngredientUnit,
-                                                  orderNumber: ingredients.count))
+                                                  orderNumber: newRecipePost.ingredients.count))
                     hideModal()
                     
                 } else {
@@ -483,10 +383,64 @@ struct NewPostView: View {
         images.removeAll()
         halfModal_textfield1_val = ""
         halfModal_textfield2_val = ""
-        ingredients = []
-        steps = []
+        newRecipePost = RecipePost.init(title: "", steps: [], ingredients: [], postingUser: "", description: "", numberOfLikes: 0, image: Image(systemName: ""))
+    }
+    
+    func submitRecipe() {
+        var actionsToComplete = 2 + self.images.count
+        var actionsCompleted = 0
+
+        func check_success() {
+            print("\(actionsCompleted)/\(actionsToComplete)")
+            if actionsCompleted == actionsToComplete {
+
+                let alertView = SPAlertView(title: "Recipe Submitted",
+                                            message: "Recipe submitted successfully!",
+                                            preset: SPAlertPreset.done)
+                alertView.duration = 3
+                alertView.present()
+
+                self.clearPage()
+            }
+        }
+
+        if self.images.count > 0 {
+            let thisRecipePost = newRecipePost
+
+            print(thisRecipePost.dictionary)
+
+            self.env.currentUser.publishedRecipes.append(thisRecipePost.id.uuidString)
+
+            firestoreSubmit_data(docRef_string: "recipe/\(thisRecipePost.id)", dataToSave: thisRecipePost.dictionary, completion: { _ in
+                actionsCompleted += 1
+                    check_success()
+            })
+
+            firestoreUpdate_data(docRef_string: "users/\(self.env.currentUser.establishedID)", dataToUpdate: ["publishedRecipes" : self.env.currentUser.publishedRecipes], completion: { _ in
+                actionsCompleted += 1
+                check_success()
+            })
+
+            for i in 0...self.images.count - 1 {
+                let image = self.images[i].image
+                uploadImage("recipe_\(thisRecipePost.id)_\(i)", image: image, completion: {_ in
+                    actionsCompleted += 1
+                    check_success()
+                })
+            }
+
+
+        } else {
+            let alertView = SPAlertView(title: "Add a photo",
+                                        message: "You can't add a recipe without a photo.",
+                                        preset: SPAlertPreset.error)
+            alertView.duration = 3
+            alertView.present()
+        }
     }
 }
+
+
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {

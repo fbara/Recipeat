@@ -11,12 +11,12 @@ import SwiftUI
 struct HomeView: View {
     
     var HomePosts:[RecipePost] = [
-        RecipePost(steps: [], ingredients: [], postingUser: "person", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        RecipePost(steps: [], ingredients: [],postingUser: "adfasdfasfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        RecipePost(steps: [], ingredients: [],postingUser: "afafdfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        RecipePost(steps: [], ingredients: [],postingUser: "adfasfas", description: "This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        RecipePost(steps: [], ingredients: [],postingUser: "afafadf", description: "This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
-        RecipePost(steps: [], ingredients: [],postingUser: "sfadsfa", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse"))
+        RecipePost(title: "", steps: [], ingredients: [], postingUser: "person", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        RecipePost(title: "", steps: [], ingredients: [],postingUser: "adfasdfasfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        RecipePost(title: "", steps: [], ingredients: [],postingUser: "afafdfd", description: "This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        RecipePost(title: "", steps: [], ingredients: [],postingUser: "adfasfas", description: "This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        RecipePost(title: "", steps: [], ingredients: [],postingUser: "afafadf", description: "This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse")),
+        RecipePost(title: "", steps: [], ingredients: [],postingUser: "sfadsfa", description: "This is a long description.This is a long description.This is a long description.This is a long description.", numberOfLikes: 112, image: Image(systemName: "timelapse"))
     ]
     
     var body: some View {

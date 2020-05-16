@@ -11,10 +11,21 @@ import SwiftUI
 
 struct trunc_RecipePost: Identifiable {
     var id = UUID()
+    var title: String
+    var decription: String
+    
+    var dictionary: [String: Any] {
+        return [
+            "id": id.uuidString,
+            "title": title,
+            "description": decription
+        ]
+    }
 }
 
 struct RecipePost: Identifiable {
     var id = UUID()
+    var title: String
     var steps: [Step]
     var ingredients: [Ingredient]
     var postingUser: String
@@ -25,6 +36,7 @@ struct RecipePost: Identifiable {
     var dictionary: [String: Any] {
         return [
             "id": id.uuidString,
+            "title": title,
             "steps": steps.formatForFirebase(),
             "ingredients": ingredients.formatForFirebase(),
             "postingUser": postingUser,
@@ -145,4 +157,9 @@ struct Step: Identifiable {
             "orderNumber": orderNumber
         ]
     }
+}
+
+
+enum new_StepOrIngredient {
+    case Step, Ingredient
 }

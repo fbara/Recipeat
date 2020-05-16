@@ -43,9 +43,9 @@ struct Me_PostView: View {
                 }
                 .foregroundColor(.init(red: 0.6, green: 0.6, blue: 0.6))
                 .opacity(0.8)
-                
-            }.font(.system(size: 15, weight: .bold))
-                .padding()
+                .font(.system(size: 15, weight: .bold))
+            .padding()
+            }
         }.frame(width: UIScreen.main.bounds.width, height: postHeight)
     }
 }
